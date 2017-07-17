@@ -35,12 +35,5 @@ oc_platform_test:
     path:      /test/{id}
     defaults:
       _controller: OCPlatformBundle:Advert:test
-
-# oc_platform_view_slug:
-#     path:      /{year}/{slug}.{format}
-#     defaults:
-#         _controller: OCPlatformBundle:Advert:viewSlug
-#         format: html
-#     requirements:
-#         year: \d{4}
-#         format: html|xml
+    requirements:
+      id: \d{1}/\{1}

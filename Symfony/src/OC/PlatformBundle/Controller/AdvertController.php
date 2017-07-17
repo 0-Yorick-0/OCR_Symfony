@@ -52,7 +52,6 @@ class AdvertController extends Controller
       );
       // $url vaut "/platform/advert/5"
 
-
       return $this->render('OCPlatformBundle:Advert:index.html.twig', array('listAdverts' => $listAdverts));
     }
 
@@ -75,6 +74,17 @@ class AdvertController extends Controller
       //Si la requête est en POST, c'est que le client à soumis le formulaire
       if($request->isMethod('POST')){
         //ici on ajoutera l'annonce
+        }
+
+        //ON récupère le service d'Antispam
+        $antispam = $this->container->get('oc_platform.antispam');
+
+        //on test le text du client
+        $text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        if ($antispam->isSpam($text)) {
+          throw new \Exception('Votre message a été détécté comme spam');
+
+        //message de succès à transmettre
         $request->getSession()->getFlashBag()->add('info', 'Annonce bien enregistrée');
 
         //Puis on redirige vers la page de visualisation de cette annonce
@@ -145,7 +155,7 @@ class AdvertController extends Controller
       // return $response;
 
       //VERSION COURTE
-      return new JsonResponse(array('id' => $id));
+      return $this->render('OCPlatformBundle:Advert:test.html.twig');
 
       // return $this->redirectToRoute('oc_platform_home');
     }
