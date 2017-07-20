@@ -2,7 +2,7 @@
 
 // src/OCCoreBundle/Controller/HomeController.php
 
-namespace OCCoreBundle\Controller;
+namespace OC\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
