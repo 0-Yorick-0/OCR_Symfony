@@ -12,7 +12,51 @@
   <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
 
   <div class="well">
+    {#On vérifie que l'image existe bien#}
+    {% if advert.image is not null %}
+      <img src="{{ advert.image.url }}" alt="{{ advert.image.alt }}" style="max-width:30%">
+    {% endif %}
+
+    {# Contenu principal de l'annonce#}
     {{ advert.content }}
+
+    {# liste des categories#}
+    {% if not advert.categories.empty %}
+      <ul>
+        {% for category in advert.categories  %}
+          <li>
+            {{ category.name }}
+            {% if not loop.last %},{% endif %}
+          </li>
+
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+
+  <div class="well">
+    {% if listApplications is not null %}
+    <ul>
+      {% for application in listApplications  %}
+        <li><a href="{{ path('oc_platform_application',{'id': application.id}) }}">{{ application.author }}</a></li>
+        {% else %}
+        <li>Pas encore de candidatures</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <div class="well">
+    {% if listAdvertSkills|length > 0 %}
+      <h4>Cette annonce requière les compétences suivantes :</h4>
+      <ul>
+        {% for advertSkill in listAdvertSkills %}
+          <li>{{advertSkill.skill.name}} : {{advertSkill.level}}</li>
+          {% else %}
+          <li>Aucune compétence particulère n'est requise</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
 
   <p>

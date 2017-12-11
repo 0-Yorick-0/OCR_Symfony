@@ -31,6 +31,20 @@ oc_platform_delete:
     requirements:
       id: \d+
 
+oc_platform_editImage:
+    path:     /editImage/{advertId}
+    defaults:
+      _controller: OCPlatformBundle:Advert:editImage
+    requirements:
+      advertId: \d+
+
+oc_platform_application:
+    path:     /application/{id}
+    defaults:
+      _controller: OCPlatformBundle:Application:view
+    requirements:
+      id: \d+
+
 oc_platform_test:
     path:      /test/{id}
     defaults:
